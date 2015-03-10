@@ -1,0 +1,114 @@
+/**
+ * Body / Defaults
+ */
+body {
+  background-color: #fff;
+}
+#wrap {
+  position: relative;
+  overflow-x: hidden;
+  margin-top: 90px;
+}
+
+
+
+
+
+/**
+ * Views / Router
+ */
+.view {
+  display: none;
+}
+
+
+
+
+/**
+ * Bootstrap Overrides
+ */
+.navbar {
+  margin:0;
+}
+.row-padded { margin-bottom: 30px; }
+.m0 { margin:0; }
+.small-right {
+  float:right;
+  padding-top: 5px;
+}
+.anchor-block {
+  display:block;
+  padding-top: 5px;
+}
+.label-large {
+  font-size:12px;
+}
+.label-icon {
+  /*font-size:10px;*/
+}
+.label .glyphicon {
+  position: relative;
+  top: 2px;
+}
+.text-left { text-align: left !important; }
+
+.col-inner {
+  border: 1px solid #eee;
+  width:100%;
+}
+.col-header {
+  background-color:#fbfbfb;
+  padding:15px;
+  border-bottom: 1px solid #eee;
+  font-size: 24px;
+  font-weight: 500;
+}
+.col-content {
+  padding: 15px;
+}
+
+
+.list-blank {
+  list-style-type: none;
+  margin: 10px 0;
+  padding:0;
+}
+.list-blank li {
+  margin:0 0 7px 0;
+}
+
+.pre-scroll {
+  max-height:300px;
+  overflow:scroll;
+}
+
+
+/**
+ * Helpers
+ */
+.flex-columns {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+  .flex-column {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .flex-column--half {
+    width:49%;
+  }
+
+
+
+/**
+ * Custom Attributes
+ */
+*[debug] {
+  display:none !important;
+}
