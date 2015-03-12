@@ -1,6 +1,6 @@
-html5 apis
-=========
+HTML5 API Demo Collection
+=========================
 
-* notifications
-* object observe
-* visibilitychange
+* `Notification`
+* `Object.observe`
+* `visibilitychange`
