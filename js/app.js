@@ -78,6 +78,10 @@ var APP = (function ($) {
 
     this.notifications.init()
 
+    this.objectObserve.init()
+
+    this.tabChange.init();
+
   }
 
 
@@ -135,7 +139,6 @@ var APP = (function ($) {
             _this.close(n, timeout)
           }
 
-
           // Notification specific events
           n.addEventListener('click', function (event) {
             if ( app.config.debug ) console.log('%cEVENT:', 'color:#a422bc', 'Notification.onclick()', event)
@@ -144,7 +147,7 @@ var APP = (function ($) {
             if ( app.config.debug ) console.log('%cEVENT:', 'color:#a422bc', 'Notification.onclose()', event)
           })
 
-          callback(n, status)
+          if ( callback ) callback(n, status)
         })
       }
 
@@ -279,6 +282,126 @@ var APP = (function ($) {
 
 
 
+
+  /**
+   * Object Observe
+   */
+  app.objectObserve = {
+
+    $el: $('*[data-test-object-observe]'),
+
+    model : {
+      title : 'Model Title',
+      value : 0
+    },
+
+    /**
+     * Initialize
+     */
+    init: function() {
+
+      var _this = app.objectObserve;
+
+      // Start observing
+      _this.observe( _this.model )
+
+      // Events
+      _this.events()
+
+    },
+
+
+    /**
+     * Event Listeners
+     */
+    events: function() {
+
+      var _this = app.objectObserve;
+
+      // Test an object change
+      $(document).on('click', _this.$el.selector, function (event) {
+
+        event.preventDefault()
+
+        _this.model.date = (new Date())
+
+      })
+
+    },
+
+    /**
+     * Observe
+     */
+    observe: function(object) {
+
+      Object.observe( object, function (changes) {
+
+        changes.forEach(function (change) {
+
+          console.log('Change: ' + object + ' -> ', change)
+          console.log('Object: ' + object + ' -> ', change.object)
+
+          app.output.log('object-observe', change )
+        })
+
+
+      })
+    }
+
+  }
+
+
+
+
+
+
+
+  /**
+   * Tab Change
+   *
+   * Change the tab's title if the user changes tabs
+   */
+  app.tabChange = {
+
+    /**
+     * Initialize
+     */
+    init: function() {
+
+      var _this = app.tabChange;
+
+      _this.tabEvent( 'Come back!' )
+
+    },
+
+    /**
+     * Tab Event
+     * 
+     * @param  {String} title 
+     */
+    tabEvent: function(title) {
+
+      var orig_title = document.title,
+          blur_title = title ? title : 'Tab blurred';
+
+      document.addEventListener('visibilitychange', function (event) {
+
+        document.title = ((document.hidden) ? blur_title : orig_title)
+
+      })
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
   /**
    * Event Listeners
    */
@@ -304,6 +427,41 @@ var APP = (function ($) {
   app.loader = {
     show : function() { app.$el.loader.show() },
     hide : function() { app.$el.loader.hide() }
+  }
+
+
+  /**
+   * Output
+   */
+  app.output = {
+
+    $el : $('*[data-output]'),
+
+    init: function() {
+
+    },
+
+    log: function(id, message) {
+
+      var _this   = app.output,
+          $output = $(_this.$el.selector+'#output--'+id)
+
+      // Object
+      if ( typeof message == 'object' ) {
+        message = JSON.stringify( message, null, 2 )
+      } 
+      // Array
+      else if ( typeof message == 'array' ) {
+        message = message.toString()
+      }
+      else {
+        message = message.toString()
+      }
+
+      $output.html( message )
+
+    },
+
   }
 
 

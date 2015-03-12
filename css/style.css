@@ -81,7 +81,9 @@ body {
   max-height:300px;
   overflow:scroll;
 }
-
+.pre-default {
+  min-height: 120px;
+}
 
 /**
  * Helpers
