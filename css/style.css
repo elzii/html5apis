@@ -57,6 +57,7 @@ body {
   width:100%;
 }
 .col-header {
+  position: relative;
   background-color:#fbfbfb;
   padding:15px;
   border-bottom: 1px solid #eee;
@@ -67,6 +68,33 @@ body {
   padding: 15px;
 }
 
+.col-collapsable {
+  
+}
+  .col-collapsable .col-header {
+    cursor: pointer;
+  }
+  .col-collapsable .col-header:hover {
+    background-color: #f5f5f5;
+  }
+  .col-collapsable .col-header:after {
+    position: absolute;
+    top:0;right:0;
+    content:'\f106';
+    font-family: "fontawesome";
+    font-size: 24px;
+    color: #1c1c1c;
+    height: 100%;
+    width: 65px;
+    line-height: 65px;
+    text-align: center;
+  }
+  .col-collapsable.col-collapsed .col-content {
+    display: none;
+  }
+  .col-collapsable.col-collapsed .col-header:after {
+    content: '\f107';
+  }
 
 .list-blank {
   list-style-type: none;
@@ -107,6 +135,20 @@ body {
   }
 
 
+
+/**
+ * Video / Media Capture
+ */
+#video-container {
+  width: 100%;
+  background-color: #333;
+  border-radius: 5px;
+  height: 400px;
+}
+#video-container video {
+  height:400px;
+  width: 100%;
+}
 
 /**
  * Custom Attributes

@@ -77,10 +77,9 @@ var APP = (function ($) {
     this.events()
 
     this.notifications.init()
-
     this.objectObserve.init()
-
-    this.tabChange.init();
+    this.mediaCapture.init()
+    this.tabChange.init()
 
   }
 
@@ -357,6 +356,147 @@ var APP = (function ($) {
 
 
   /**
+   * Media Capture
+   */
+  app.mediaCapture = {
+
+    $el: {
+      start : $('*[data-media-capture]'),
+      stop  : $('*[data-media-capture-stop]')
+    },
+
+
+    /**
+     * Initialize
+     */
+    init: function() {
+
+      var _this = app.mediaCapture;
+
+      _this.events()
+
+
+    },
+
+
+
+    /**
+     * Event Listeners
+     */
+    events: function() {
+
+      var _this = app.mediaCapture;
+
+      // Test media capture
+      $(document).on('click', _this.$el.start.selector, function (event) {
+
+        event.preventDefault()
+
+        // Create video element & append
+        var video = _this.createVideoElement('video', 'video-container');
+
+        _this.getUserMedia( video, {
+          audio : true,
+          video : true
+        })
+
+      })
+
+      // Stop capture
+      $(document).on('click', _this.$el.stop.selector, function (event) {
+
+        event.preventDefault()
+
+        // Create video element & append
+        var video = document.querySelector('video')
+
+        video.pause()
+
+      })      
+
+
+    },
+
+    /**
+     * Create Video Element
+     * 
+     * @param  {String}  id     
+     * @param  {String}  target 
+     * @return {Element} video
+     */
+    createVideoElement: function(id, target) {
+
+      if ( document.getElementsByTagName('video') && document.getElementsByTagName('video').length > 0 ) {
+        document.getElementsByTagName('video')[0].remove()
+      }
+
+      // Video element
+      var video = document.createElement('video')
+          video.id = id;
+          video.setAttribute('autoplay', 'true')
+
+      var container = document.getElementById(target)
+          container.appendChild( video )
+
+      return video;
+
+    },
+
+
+    /**
+     * Get User Media
+     * 
+     * @param  {Element} video  
+     * @param  {Object} option 
+     */
+    getUserMedia: function(video, option) {
+
+      // Defaults
+      var video   = video ? video : document.getElementById('video'),
+          options = options ? options : {
+            audio : true,
+            video : true
+          }
+
+      // Cross-Browser Compatibility
+      navigator.getUserMedia  = navigator.getUserMedia ||
+                                navigator.webkitGetUserMedia ||
+                                navigator.mozGetUserMedia ||
+                                navigator.msGetUserMedia;
+      
+      // If browser supports
+      if ( navigator.getUserMedia ) {
+        navigator.getUserMedia( options, function (stream) {
+
+          video.src = window.URL.createObjectURL(stream)
+
+        }, function (error) {
+          console.log( 'ERROR: ', error)
+        })
+      } 
+      // Not supported
+      else {
+        video.src = 'fallback-video.webm';
+      }
+
+    }
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
    * Tab Change
    *
    * Change the tab's title if the user changes tabs
@@ -408,11 +548,14 @@ var APP = (function ($) {
   app.events = function() {
 
     // Dropdown toggle
-    $(document).on('click', '.class', function (event) {
+    $(document).on('click', '.col-collapsable .col-header', function (event) {
 
       event.preventDefault()
 
-      var $this = $(this)
+      var $this = $(this),
+          $col  = $this.parent()
+
+      $col.toggleClass('col-collapsed')
 
     })
 
