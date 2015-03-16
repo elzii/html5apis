@@ -34,7 +34,9 @@
 
     <div id="nav--main" class="nav navbar-nav">
 
-      <!-- <li><a href="#people">People</a></li> -->
+      <li><a href="#notifications">Notifications</a></li>
+      <li><a href="#object-observe">Object Observe</a></li>
+      <li><a href="#media-capture">Media Capture</a></li>
 
     </div>
 
@@ -139,14 +141,15 @@
           <div class="col-lg-5">
             <h4>Summary</h4>
             <hr>
-            <p><a href="">MozillaDN Documentation</a></p>
+            <p>Prompts the user for permission to use a media device such as a camera or microphone. If the user provides permission, the successCallback is invoked on the calling application with a LocalMediaStream object as its argument.</p>
+            <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getUserMedia">MozillaDN Documentation</a></p>
             <p>
               <button class="btn btn-primary" data-media-capture>Capture Media</button>
               <button class="btn btn-danger" data-media-capture-stop>Stop Capture</button>
             </p>
           </div>
           <div class="col-lg-7">
-            <h4>Output</h4>
+            <h4>Video Capture Stream</h4>
             <hr>
             <div id="video-container"></div>
           </div>
